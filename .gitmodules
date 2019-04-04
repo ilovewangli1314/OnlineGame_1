@@ -1,0 +1,3 @@
+[submodule "submodules/pomelo-jsclient-websocket"]
+	path = submodules/pomelo-jsclient-websocket
+	url = https://github.com/pomelonode/pomelo-jsclient-websocket.git
