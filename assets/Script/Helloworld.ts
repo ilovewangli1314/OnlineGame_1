@@ -13,51 +13,31 @@ export default class Helloworld extends cc.Component {
         // init logic
         this.label.string = this.text;
 
-        var pomelo = window.pomelo;
+        let starx = window.starx;
+        var onMessage = function (msg) {
+            cc.log("[starx] onMessage:" + msg);
+        };
 
-        var route = 'gate.gateHandler.queryEntry';
-        var uid = "uid";
-        var rid = "rid";
-        var username = "username";
+        var join = function (data) {
+            cc.log(data);
+            if(data.code === 0) {
+                starx.on('onMessage', onMessage)
+            }
+        };
 
-        pomelo.init({
-            host: "127.0.0.1",
-            port: 3014,
-            log: true
-        }, function() {
-            pomelo.request(route, {
-                uid: uid
-            }, function(data) {
-                pomelo.disconnect();
-                pomelo.init({
-                    host: data.host,
-                    port: data.port,
-                    log: true
-                }, function() {
-                    var route = "connector.entryHandler.enter";
-                    pomelo.request(route, {
-                        username: username,
-                        rid: rid
-                    }, function(data) {
-                        cc.log(JSON.stringify(data));
-                        chatSend();
-                    });
-                });
-            });
-        });
+        var onNewUser = function (data) {
+            cc.log(data);
+        };
 
-        function chatSend() {
-            var route = "chat.chatHandler.send";
-            var target = "*";
-            var msg = "msg"
-            pomelo.request(route, {
-                rid: rid,
-                content: msg,
-                from: username,
-                target: target
-            }, function(data) {
-                cc.log(JSON.stringify(data));
-            });
-        }
+        var onMembers = function (data) {
+            cc.log(data);
+        };
+
+        starx.init({host: '47.254.94.23', port: 3250, path: '/'}, function () {
+            cc.log("initialized");
+            starx.on("onNewUser", onNewUser);
+            starx.on("onMembers", onMembers);
+            starx.request("room.join", {}, join);
+        })
     }
 }
