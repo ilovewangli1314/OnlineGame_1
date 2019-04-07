@@ -1,0 +1,23 @@
+{
+  "name": "onlinegame_1",
+  "version": "1.0.0",
+  "description": "Hello world new project template.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ilovewangli1314/OnlineGame_1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ilovewangli1314/OnlineGame_1/issues"
+  },
+  "homepage": "https://github.com/ilovewangli1314/OnlineGame_1#readme",
+  "dependencies": {
+    "protobufjs": "^6.8.8"
+  },
+  "devDependencies": {}
+}

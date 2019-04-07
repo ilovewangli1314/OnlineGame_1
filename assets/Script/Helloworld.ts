@@ -1,3 +1,5 @@
+import { awesomepackage } from "./protos/test1";
+
 const {ccclass, property} = cc._decorator;
 
 @ccclass
@@ -13,24 +15,33 @@ export default class Helloworld extends cc.Component {
         // init logic
         this.label.string = this.text;
 
+        let message = awesomepackage.AwesomeMessage.create({ awesomeField: "hello" });
+        let buffer  = awesomepackage.AwesomeMessage.encode(message).finish();
+        let decoded = awesomepackage.AwesomeMessage.decode(buffer);
+        cc.log(buffer);
+        cc.log(decoded);
+        cc.log(JSON.stringify(decoded));
+        cc.log(decoded.awesomeField);
+
         let starx = window.starx;
         var onMessage = function (msg) {
-            cc.log("[starx] onMessage:" + msg);
+            cc.log("[starx] onMessage:" + JSON.stringify(msg));
         };
 
         var join = function (data) {
-            cc.log(data);
+            cc.log(JSON.stringify(data));
             if(data.code === 0) {
-                starx.on('onMessage', onMessage)
+                starx.on('onMessage', onMessage);
+                starx.notify("room.message", {name: "jianggang", content: "Hello world!"}, join);
             }
         };
 
         var onNewUser = function (data) {
-            cc.log(data);
+            cc.log("[starx] onNewUser:" + JSON.stringify(data));
         };
 
         var onMembers = function (data) {
-            cc.log(data);
+            cc.log("[starx] onMembers: " + JSON.stringify(data));
         };
 
         starx.init({host: '47.254.94.23', port: 3250, path: '/'}, function () {
