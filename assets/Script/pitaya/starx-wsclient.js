@@ -530,7 +530,9 @@
     if(decodeIO_decoder && decodeIO_decoder.lookup(route)) {
       return decodeIO_decoder.build(route).decode(msg.body);
     } else {
-      return JSON.parse(Protocol.strdecode(msg.body));
+      // return JSON.parse(Protocol.strdecode(msg.body));
+      // Fixme: default return protobuf raw data
+      return msg.body;
     }
 
     return msg;

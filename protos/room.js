@@ -9,20 +9,20 @@ var $Reader = $protobuf.Reader, $Writer = $protobuf.Writer, $util = $protobuf.ut
 // Exported root namespace
 var $root = $protobuf.roots["default"] || ($protobuf.roots["default"] = {});
 
-$root.game = (function() {
+$root.room = (function() {
 
     /**
-     * Namespace game.
-     * @exports game
+     * Namespace room.
+     * @exports room
      * @namespace
      */
-    var game = {};
+    var room = {};
 
-    game.Hero = (function() {
+    room.Hero = (function() {
 
         /**
          * Properties of a Hero.
-         * @memberof game
+         * @memberof room
          * @interface IHero
          * @property {number|null} [Id] Hero Id
          * @property {number|null} [Hp] Hero Hp
@@ -33,11 +33,11 @@ $root.game = (function() {
 
         /**
          * Constructs a new Hero.
-         * @memberof game
+         * @memberof room
          * @classdesc Represents a Hero.
          * @implements IHero
          * @constructor
-         * @param {game.IHero=} [properties] Properties to set
+         * @param {room.IHero=} [properties] Properties to set
          */
         function Hero(properties) {
             if (properties)
@@ -49,7 +49,7 @@ $root.game = (function() {
         /**
          * Hero Id.
          * @member {number} Id
-         * @memberof game.Hero
+         * @memberof room.Hero
          * @instance
          */
         Hero.prototype.Id = 0;
@@ -57,7 +57,7 @@ $root.game = (function() {
         /**
          * Hero Hp.
          * @member {number} Hp
-         * @memberof game.Hero
+         * @memberof room.Hero
          * @instance
          */
         Hero.prototype.Hp = 0;
@@ -65,7 +65,7 @@ $root.game = (function() {
         /**
          * Hero Mp.
          * @member {number} Mp
-         * @memberof game.Hero
+         * @memberof room.Hero
          * @instance
          */
         Hero.prototype.Mp = 0;
@@ -73,7 +73,7 @@ $root.game = (function() {
         /**
          * Hero Attack.
          * @member {number} Attack
-         * @memberof game.Hero
+         * @memberof room.Hero
          * @instance
          */
         Hero.prototype.Attack = 0;
@@ -81,7 +81,7 @@ $root.game = (function() {
         /**
          * Hero Defense.
          * @member {number} Defense
-         * @memberof game.Hero
+         * @memberof room.Hero
          * @instance
          */
         Hero.prototype.Defense = 0;
@@ -89,21 +89,21 @@ $root.game = (function() {
         /**
          * Creates a new Hero instance using the specified properties.
          * @function create
-         * @memberof game.Hero
+         * @memberof room.Hero
          * @static
-         * @param {game.IHero=} [properties] Properties to set
-         * @returns {game.Hero} Hero instance
+         * @param {room.IHero=} [properties] Properties to set
+         * @returns {room.Hero} Hero instance
          */
         Hero.create = function create(properties) {
             return new Hero(properties);
         };
 
         /**
-         * Encodes the specified Hero message. Does not implicitly {@link game.Hero.verify|verify} messages.
+         * Encodes the specified Hero message. Does not implicitly {@link room.Hero.verify|verify} messages.
          * @function encode
-         * @memberof game.Hero
+         * @memberof room.Hero
          * @static
-         * @param {game.IHero} message Hero message or plain object to encode
+         * @param {room.IHero} message Hero message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
@@ -124,11 +124,11 @@ $root.game = (function() {
         };
 
         /**
-         * Encodes the specified Hero message, length delimited. Does not implicitly {@link game.Hero.verify|verify} messages.
+         * Encodes the specified Hero message, length delimited. Does not implicitly {@link room.Hero.verify|verify} messages.
          * @function encodeDelimited
-         * @memberof game.Hero
+         * @memberof room.Hero
          * @static
-         * @param {game.IHero} message Hero message or plain object to encode
+         * @param {room.IHero} message Hero message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
@@ -139,18 +139,18 @@ $root.game = (function() {
         /**
          * Decodes a Hero message from the specified reader or buffer.
          * @function decode
-         * @memberof game.Hero
+         * @memberof room.Hero
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
          * @param {number} [length] Message length if known beforehand
-         * @returns {game.Hero} Hero
+         * @returns {room.Hero} Hero
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
         Hero.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.game.Hero();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.room.Hero();
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
@@ -180,10 +180,10 @@ $root.game = (function() {
         /**
          * Decodes a Hero message from the specified reader or buffer, length delimited.
          * @function decodeDelimited
-         * @memberof game.Hero
+         * @memberof room.Hero
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {game.Hero} Hero
+         * @returns {room.Hero} Hero
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
@@ -196,7 +196,7 @@ $root.game = (function() {
         /**
          * Verifies a Hero message.
          * @function verify
-         * @memberof game.Hero
+         * @memberof room.Hero
          * @static
          * @param {Object.<string,*>} message Plain object to verify
          * @returns {string|null} `null` if valid, otherwise the reason why it is not
@@ -225,15 +225,15 @@ $root.game = (function() {
         /**
          * Creates a Hero message from a plain object. Also converts values to their respective internal types.
          * @function fromObject
-         * @memberof game.Hero
+         * @memberof room.Hero
          * @static
          * @param {Object.<string,*>} object Plain object
-         * @returns {game.Hero} Hero
+         * @returns {room.Hero} Hero
          */
         Hero.fromObject = function fromObject(object) {
-            if (object instanceof $root.game.Hero)
+            if (object instanceof $root.room.Hero)
                 return object;
-            var message = new $root.game.Hero();
+            var message = new $root.room.Hero();
             if (object.Id != null)
                 message.Id = object.Id | 0;
             if (object.Hp != null)
@@ -250,9 +250,9 @@ $root.game = (function() {
         /**
          * Creates a plain object from a Hero message. Also converts values to other types if specified.
          * @function toObject
-         * @memberof game.Hero
+         * @memberof room.Hero
          * @static
-         * @param {game.Hero} message Hero
+         * @param {room.Hero} message Hero
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
@@ -283,7 +283,7 @@ $root.game = (function() {
         /**
          * Converts this Hero to JSON.
          * @function toJSON
-         * @memberof game.Hero
+         * @memberof room.Hero
          * @instance
          * @returns {Object.<string,*>} JSON object
          */
@@ -294,22 +294,22 @@ $root.game = (function() {
         return Hero;
     })();
 
-    game.Scene = (function() {
+    room.Scene = (function() {
 
         /**
          * Properties of a Scene.
-         * @memberof game
+         * @memberof room
          * @interface IScene
-         * @property {Array.<game.IHero>|null} [Heros] Scene Heros
+         * @property {Array.<room.IHero>|null} [Heros] Scene Heros
          */
 
         /**
          * Constructs a new Scene.
-         * @memberof game
+         * @memberof room
          * @classdesc Represents a Scene.
          * @implements IScene
          * @constructor
-         * @param {game.IScene=} [properties] Properties to set
+         * @param {room.IScene=} [properties] Properties to set
          */
         function Scene(properties) {
             this.Heros = [];
@@ -321,8 +321,8 @@ $root.game = (function() {
 
         /**
          * Scene Heros.
-         * @member {Array.<game.IHero>} Heros
-         * @memberof game.Scene
+         * @member {Array.<room.IHero>} Heros
+         * @memberof room.Scene
          * @instance
          */
         Scene.prototype.Heros = $util.emptyArray;
@@ -330,21 +330,21 @@ $root.game = (function() {
         /**
          * Creates a new Scene instance using the specified properties.
          * @function create
-         * @memberof game.Scene
+         * @memberof room.Scene
          * @static
-         * @param {game.IScene=} [properties] Properties to set
-         * @returns {game.Scene} Scene instance
+         * @param {room.IScene=} [properties] Properties to set
+         * @returns {room.Scene} Scene instance
          */
         Scene.create = function create(properties) {
             return new Scene(properties);
         };
 
         /**
-         * Encodes the specified Scene message. Does not implicitly {@link game.Scene.verify|verify} messages.
+         * Encodes the specified Scene message. Does not implicitly {@link room.Scene.verify|verify} messages.
          * @function encode
-         * @memberof game.Scene
+         * @memberof room.Scene
          * @static
-         * @param {game.IScene} message Scene message or plain object to encode
+         * @param {room.IScene} message Scene message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
@@ -353,16 +353,16 @@ $root.game = (function() {
                 writer = $Writer.create();
             if (message.Heros != null && message.Heros.length)
                 for (var i = 0; i < message.Heros.length; ++i)
-                    $root.game.Hero.encode(message.Heros[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.room.Hero.encode(message.Heros[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
             return writer;
         };
 
         /**
-         * Encodes the specified Scene message, length delimited. Does not implicitly {@link game.Scene.verify|verify} messages.
+         * Encodes the specified Scene message, length delimited. Does not implicitly {@link room.Scene.verify|verify} messages.
          * @function encodeDelimited
-         * @memberof game.Scene
+         * @memberof room.Scene
          * @static
-         * @param {game.IScene} message Scene message or plain object to encode
+         * @param {room.IScene} message Scene message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
@@ -373,25 +373,25 @@ $root.game = (function() {
         /**
          * Decodes a Scene message from the specified reader or buffer.
          * @function decode
-         * @memberof game.Scene
+         * @memberof room.Scene
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
          * @param {number} [length] Message length if known beforehand
-         * @returns {game.Scene} Scene
+         * @returns {room.Scene} Scene
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
         Scene.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.game.Scene();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.room.Scene();
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
                     if (!(message.Heros && message.Heros.length))
                         message.Heros = [];
-                    message.Heros.push($root.game.Hero.decode(reader, reader.uint32()));
+                    message.Heros.push($root.room.Hero.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -404,10 +404,10 @@ $root.game = (function() {
         /**
          * Decodes a Scene message from the specified reader or buffer, length delimited.
          * @function decodeDelimited
-         * @memberof game.Scene
+         * @memberof room.Scene
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {game.Scene} Scene
+         * @returns {room.Scene} Scene
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
@@ -420,7 +420,7 @@ $root.game = (function() {
         /**
          * Verifies a Scene message.
          * @function verify
-         * @memberof game.Scene
+         * @memberof room.Scene
          * @static
          * @param {Object.<string,*>} message Plain object to verify
          * @returns {string|null} `null` if valid, otherwise the reason why it is not
@@ -432,7 +432,7 @@ $root.game = (function() {
                 if (!Array.isArray(message.Heros))
                     return "Heros: array expected";
                 for (var i = 0; i < message.Heros.length; ++i) {
-                    var error = $root.game.Hero.verify(message.Heros[i]);
+                    var error = $root.room.Hero.verify(message.Heros[i]);
                     if (error)
                         return "Heros." + error;
                 }
@@ -443,23 +443,23 @@ $root.game = (function() {
         /**
          * Creates a Scene message from a plain object. Also converts values to their respective internal types.
          * @function fromObject
-         * @memberof game.Scene
+         * @memberof room.Scene
          * @static
          * @param {Object.<string,*>} object Plain object
-         * @returns {game.Scene} Scene
+         * @returns {room.Scene} Scene
          */
         Scene.fromObject = function fromObject(object) {
-            if (object instanceof $root.game.Scene)
+            if (object instanceof $root.room.Scene)
                 return object;
-            var message = new $root.game.Scene();
+            var message = new $root.room.Scene();
             if (object.Heros) {
                 if (!Array.isArray(object.Heros))
-                    throw TypeError(".game.Scene.Heros: array expected");
+                    throw TypeError(".room.Scene.Heros: array expected");
                 message.Heros = [];
                 for (var i = 0; i < object.Heros.length; ++i) {
                     if (typeof object.Heros[i] !== "object")
-                        throw TypeError(".game.Scene.Heros: object expected");
-                    message.Heros[i] = $root.game.Hero.fromObject(object.Heros[i]);
+                        throw TypeError(".room.Scene.Heros: object expected");
+                    message.Heros[i] = $root.room.Hero.fromObject(object.Heros[i]);
                 }
             }
             return message;
@@ -468,9 +468,9 @@ $root.game = (function() {
         /**
          * Creates a plain object from a Scene message. Also converts values to other types if specified.
          * @function toObject
-         * @memberof game.Scene
+         * @memberof room.Scene
          * @static
-         * @param {game.Scene} message Scene
+         * @param {room.Scene} message Scene
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
@@ -483,7 +483,7 @@ $root.game = (function() {
             if (message.Heros && message.Heros.length) {
                 object.Heros = [];
                 for (var j = 0; j < message.Heros.length; ++j)
-                    object.Heros[j] = $root.game.Hero.toObject(message.Heros[j], options);
+                    object.Heros[j] = $root.room.Hero.toObject(message.Heros[j], options);
             }
             return object;
         };
@@ -491,7 +491,7 @@ $root.game = (function() {
         /**
          * Converts this Scene to JSON.
          * @function toJSON
-         * @memberof game.Scene
+         * @memberof room.Scene
          * @instance
          * @returns {Object.<string,*>} JSON object
          */
@@ -502,11 +502,11 @@ $root.game = (function() {
         return Scene;
     })();
 
-    game.Action = (function() {
+    room.Action = (function() {
 
         /**
          * Properties of an Action.
-         * @memberof game
+         * @memberof room
          * @interface IAction
          * @property {number|null} [SrcHeroId] Action SrcHeroId
          * @property {number|null} [TargetHeroId] Action TargetHeroId
@@ -515,11 +515,11 @@ $root.game = (function() {
 
         /**
          * Constructs a new Action.
-         * @memberof game
+         * @memberof room
          * @classdesc Represents an Action.
          * @implements IAction
          * @constructor
-         * @param {game.IAction=} [properties] Properties to set
+         * @param {room.IAction=} [properties] Properties to set
          */
         function Action(properties) {
             if (properties)
@@ -531,7 +531,7 @@ $root.game = (function() {
         /**
          * Action SrcHeroId.
          * @member {number} SrcHeroId
-         * @memberof game.Action
+         * @memberof room.Action
          * @instance
          */
         Action.prototype.SrcHeroId = 0;
@@ -539,7 +539,7 @@ $root.game = (function() {
         /**
          * Action TargetHeroId.
          * @member {number} TargetHeroId
-         * @memberof game.Action
+         * @memberof room.Action
          * @instance
          */
         Action.prototype.TargetHeroId = 0;
@@ -547,7 +547,7 @@ $root.game = (function() {
         /**
          * Action SkillType.
          * @member {number} SkillType
-         * @memberof game.Action
+         * @memberof room.Action
          * @instance
          */
         Action.prototype.SkillType = 0;
@@ -555,21 +555,21 @@ $root.game = (function() {
         /**
          * Creates a new Action instance using the specified properties.
          * @function create
-         * @memberof game.Action
+         * @memberof room.Action
          * @static
-         * @param {game.IAction=} [properties] Properties to set
-         * @returns {game.Action} Action instance
+         * @param {room.IAction=} [properties] Properties to set
+         * @returns {room.Action} Action instance
          */
         Action.create = function create(properties) {
             return new Action(properties);
         };
 
         /**
-         * Encodes the specified Action message. Does not implicitly {@link game.Action.verify|verify} messages.
+         * Encodes the specified Action message. Does not implicitly {@link room.Action.verify|verify} messages.
          * @function encode
-         * @memberof game.Action
+         * @memberof room.Action
          * @static
-         * @param {game.IAction} message Action message or plain object to encode
+         * @param {room.IAction} message Action message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
@@ -586,11 +586,11 @@ $root.game = (function() {
         };
 
         /**
-         * Encodes the specified Action message, length delimited. Does not implicitly {@link game.Action.verify|verify} messages.
+         * Encodes the specified Action message, length delimited. Does not implicitly {@link room.Action.verify|verify} messages.
          * @function encodeDelimited
-         * @memberof game.Action
+         * @memberof room.Action
          * @static
-         * @param {game.IAction} message Action message or plain object to encode
+         * @param {room.IAction} message Action message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
@@ -601,18 +601,18 @@ $root.game = (function() {
         /**
          * Decodes an Action message from the specified reader or buffer.
          * @function decode
-         * @memberof game.Action
+         * @memberof room.Action
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
          * @param {number} [length] Message length if known beforehand
-         * @returns {game.Action} Action
+         * @returns {room.Action} Action
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
         Action.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.game.Action();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.room.Action();
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
@@ -636,10 +636,10 @@ $root.game = (function() {
         /**
          * Decodes an Action message from the specified reader or buffer, length delimited.
          * @function decodeDelimited
-         * @memberof game.Action
+         * @memberof room.Action
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {game.Action} Action
+         * @returns {room.Action} Action
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
@@ -652,7 +652,7 @@ $root.game = (function() {
         /**
          * Verifies an Action message.
          * @function verify
-         * @memberof game.Action
+         * @memberof room.Action
          * @static
          * @param {Object.<string,*>} message Plain object to verify
          * @returns {string|null} `null` if valid, otherwise the reason why it is not
@@ -675,15 +675,15 @@ $root.game = (function() {
         /**
          * Creates an Action message from a plain object. Also converts values to their respective internal types.
          * @function fromObject
-         * @memberof game.Action
+         * @memberof room.Action
          * @static
          * @param {Object.<string,*>} object Plain object
-         * @returns {game.Action} Action
+         * @returns {room.Action} Action
          */
         Action.fromObject = function fromObject(object) {
-            if (object instanceof $root.game.Action)
+            if (object instanceof $root.room.Action)
                 return object;
-            var message = new $root.game.Action();
+            var message = new $root.room.Action();
             if (object.SrcHeroId != null)
                 message.SrcHeroId = object.SrcHeroId | 0;
             if (object.TargetHeroId != null)
@@ -696,9 +696,9 @@ $root.game = (function() {
         /**
          * Creates a plain object from an Action message. Also converts values to other types if specified.
          * @function toObject
-         * @memberof game.Action
+         * @memberof room.Action
          * @static
-         * @param {game.Action} message Action
+         * @param {room.Action} message Action
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
@@ -723,7 +723,7 @@ $root.game = (function() {
         /**
          * Converts this Action to JSON.
          * @function toJSON
-         * @memberof game.Action
+         * @memberof room.Action
          * @instance
          * @returns {Object.<string,*>} JSON object
          */
@@ -734,21 +734,21 @@ $root.game = (function() {
         return Action;
     })();
 
-    game.JoinRequest = (function() {
+    room.JoinRequest = (function() {
 
         /**
          * Properties of a JoinRequest.
-         * @memberof game
+         * @memberof room
          * @interface IJoinRequest
          */
 
         /**
          * Constructs a new JoinRequest.
-         * @memberof game
+         * @memberof room
          * @classdesc Represents a JoinRequest.
          * @implements IJoinRequest
          * @constructor
-         * @param {game.IJoinRequest=} [properties] Properties to set
+         * @param {room.IJoinRequest=} [properties] Properties to set
          */
         function JoinRequest(properties) {
             if (properties)
@@ -760,21 +760,21 @@ $root.game = (function() {
         /**
          * Creates a new JoinRequest instance using the specified properties.
          * @function create
-         * @memberof game.JoinRequest
+         * @memberof room.JoinRequest
          * @static
-         * @param {game.IJoinRequest=} [properties] Properties to set
-         * @returns {game.JoinRequest} JoinRequest instance
+         * @param {room.IJoinRequest=} [properties] Properties to set
+         * @returns {room.JoinRequest} JoinRequest instance
          */
         JoinRequest.create = function create(properties) {
             return new JoinRequest(properties);
         };
 
         /**
-         * Encodes the specified JoinRequest message. Does not implicitly {@link game.JoinRequest.verify|verify} messages.
+         * Encodes the specified JoinRequest message. Does not implicitly {@link room.JoinRequest.verify|verify} messages.
          * @function encode
-         * @memberof game.JoinRequest
+         * @memberof room.JoinRequest
          * @static
-         * @param {game.IJoinRequest} message JoinRequest message or plain object to encode
+         * @param {room.IJoinRequest} message JoinRequest message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
@@ -785,11 +785,11 @@ $root.game = (function() {
         };
 
         /**
-         * Encodes the specified JoinRequest message, length delimited. Does not implicitly {@link game.JoinRequest.verify|verify} messages.
+         * Encodes the specified JoinRequest message, length delimited. Does not implicitly {@link room.JoinRequest.verify|verify} messages.
          * @function encodeDelimited
-         * @memberof game.JoinRequest
+         * @memberof room.JoinRequest
          * @static
-         * @param {game.IJoinRequest} message JoinRequest message or plain object to encode
+         * @param {room.IJoinRequest} message JoinRequest message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
@@ -800,18 +800,18 @@ $root.game = (function() {
         /**
          * Decodes a JoinRequest message from the specified reader or buffer.
          * @function decode
-         * @memberof game.JoinRequest
+         * @memberof room.JoinRequest
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
          * @param {number} [length] Message length if known beforehand
-         * @returns {game.JoinRequest} JoinRequest
+         * @returns {room.JoinRequest} JoinRequest
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
         JoinRequest.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.game.JoinRequest();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.room.JoinRequest();
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
@@ -826,10 +826,10 @@ $root.game = (function() {
         /**
          * Decodes a JoinRequest message from the specified reader or buffer, length delimited.
          * @function decodeDelimited
-         * @memberof game.JoinRequest
+         * @memberof room.JoinRequest
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {game.JoinRequest} JoinRequest
+         * @returns {room.JoinRequest} JoinRequest
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
@@ -842,7 +842,7 @@ $root.game = (function() {
         /**
          * Verifies a JoinRequest message.
          * @function verify
-         * @memberof game.JoinRequest
+         * @memberof room.JoinRequest
          * @static
          * @param {Object.<string,*>} message Plain object to verify
          * @returns {string|null} `null` if valid, otherwise the reason why it is not
@@ -856,23 +856,23 @@ $root.game = (function() {
         /**
          * Creates a JoinRequest message from a plain object. Also converts values to their respective internal types.
          * @function fromObject
-         * @memberof game.JoinRequest
+         * @memberof room.JoinRequest
          * @static
          * @param {Object.<string,*>} object Plain object
-         * @returns {game.JoinRequest} JoinRequest
+         * @returns {room.JoinRequest} JoinRequest
          */
         JoinRequest.fromObject = function fromObject(object) {
-            if (object instanceof $root.game.JoinRequest)
+            if (object instanceof $root.room.JoinRequest)
                 return object;
-            return new $root.game.JoinRequest();
+            return new $root.room.JoinRequest();
         };
 
         /**
          * Creates a plain object from a JoinRequest message. Also converts values to other types if specified.
          * @function toObject
-         * @memberof game.JoinRequest
+         * @memberof room.JoinRequest
          * @static
-         * @param {game.JoinRequest} message JoinRequest
+         * @param {room.JoinRequest} message JoinRequest
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
@@ -883,7 +883,7 @@ $root.game = (function() {
         /**
          * Converts this JoinRequest to JSON.
          * @function toJSON
-         * @memberof game.JoinRequest
+         * @memberof room.JoinRequest
          * @instance
          * @returns {Object.<string,*>} JSON object
          */
@@ -894,22 +894,22 @@ $root.game = (function() {
         return JoinRequest;
     })();
 
-    game.JoinResponse = (function() {
+    room.JoinResponse = (function() {
 
         /**
          * Properties of a JoinResponse.
-         * @memberof game
+         * @memberof room
          * @interface IJoinResponse
          * @property {number|null} [Code] JoinResponse Code
          */
 
         /**
          * Constructs a new JoinResponse.
-         * @memberof game
+         * @memberof room
          * @classdesc Represents a JoinResponse.
          * @implements IJoinResponse
          * @constructor
-         * @param {game.IJoinResponse=} [properties] Properties to set
+         * @param {room.IJoinResponse=} [properties] Properties to set
          */
         function JoinResponse(properties) {
             if (properties)
@@ -921,7 +921,7 @@ $root.game = (function() {
         /**
          * JoinResponse Code.
          * @member {number} Code
-         * @memberof game.JoinResponse
+         * @memberof room.JoinResponse
          * @instance
          */
         JoinResponse.prototype.Code = 0;
@@ -929,21 +929,21 @@ $root.game = (function() {
         /**
          * Creates a new JoinResponse instance using the specified properties.
          * @function create
-         * @memberof game.JoinResponse
+         * @memberof room.JoinResponse
          * @static
-         * @param {game.IJoinResponse=} [properties] Properties to set
-         * @returns {game.JoinResponse} JoinResponse instance
+         * @param {room.IJoinResponse=} [properties] Properties to set
+         * @returns {room.JoinResponse} JoinResponse instance
          */
         JoinResponse.create = function create(properties) {
             return new JoinResponse(properties);
         };
 
         /**
-         * Encodes the specified JoinResponse message. Does not implicitly {@link game.JoinResponse.verify|verify} messages.
+         * Encodes the specified JoinResponse message. Does not implicitly {@link room.JoinResponse.verify|verify} messages.
          * @function encode
-         * @memberof game.JoinResponse
+         * @memberof room.JoinResponse
          * @static
-         * @param {game.IJoinResponse} message JoinResponse message or plain object to encode
+         * @param {room.IJoinResponse} message JoinResponse message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
@@ -956,11 +956,11 @@ $root.game = (function() {
         };
 
         /**
-         * Encodes the specified JoinResponse message, length delimited. Does not implicitly {@link game.JoinResponse.verify|verify} messages.
+         * Encodes the specified JoinResponse message, length delimited. Does not implicitly {@link room.JoinResponse.verify|verify} messages.
          * @function encodeDelimited
-         * @memberof game.JoinResponse
+         * @memberof room.JoinResponse
          * @static
-         * @param {game.IJoinResponse} message JoinResponse message or plain object to encode
+         * @param {room.IJoinResponse} message JoinResponse message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
@@ -971,18 +971,18 @@ $root.game = (function() {
         /**
          * Decodes a JoinResponse message from the specified reader or buffer.
          * @function decode
-         * @memberof game.JoinResponse
+         * @memberof room.JoinResponse
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
          * @param {number} [length] Message length if known beforehand
-         * @returns {game.JoinResponse} JoinResponse
+         * @returns {room.JoinResponse} JoinResponse
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
         JoinResponse.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.game.JoinResponse();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.room.JoinResponse();
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
@@ -1000,10 +1000,10 @@ $root.game = (function() {
         /**
          * Decodes a JoinResponse message from the specified reader or buffer, length delimited.
          * @function decodeDelimited
-         * @memberof game.JoinResponse
+         * @memberof room.JoinResponse
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {game.JoinResponse} JoinResponse
+         * @returns {room.JoinResponse} JoinResponse
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
@@ -1016,7 +1016,7 @@ $root.game = (function() {
         /**
          * Verifies a JoinResponse message.
          * @function verify
-         * @memberof game.JoinResponse
+         * @memberof room.JoinResponse
          * @static
          * @param {Object.<string,*>} message Plain object to verify
          * @returns {string|null} `null` if valid, otherwise the reason why it is not
@@ -1033,15 +1033,15 @@ $root.game = (function() {
         /**
          * Creates a JoinResponse message from a plain object. Also converts values to their respective internal types.
          * @function fromObject
-         * @memberof game.JoinResponse
+         * @memberof room.JoinResponse
          * @static
          * @param {Object.<string,*>} object Plain object
-         * @returns {game.JoinResponse} JoinResponse
+         * @returns {room.JoinResponse} JoinResponse
          */
         JoinResponse.fromObject = function fromObject(object) {
-            if (object instanceof $root.game.JoinResponse)
+            if (object instanceof $root.room.JoinResponse)
                 return object;
-            var message = new $root.game.JoinResponse();
+            var message = new $root.room.JoinResponse();
             if (object.Code != null)
                 message.Code = object.Code | 0;
             return message;
@@ -1050,9 +1050,9 @@ $root.game = (function() {
         /**
          * Creates a plain object from a JoinResponse message. Also converts values to other types if specified.
          * @function toObject
-         * @memberof game.JoinResponse
+         * @memberof room.JoinResponse
          * @static
-         * @param {game.JoinResponse} message JoinResponse
+         * @param {room.JoinResponse} message JoinResponse
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
@@ -1070,7 +1070,7 @@ $root.game = (function() {
         /**
          * Converts this JoinResponse to JSON.
          * @function toJSON
-         * @memberof game.JoinResponse
+         * @memberof room.JoinResponse
          * @instance
          * @returns {Object.<string,*>} JSON object
          */
@@ -1081,7 +1081,7 @@ $root.game = (function() {
         return JoinResponse;
     })();
 
-    return game;
+    return room;
 })();
 
 module.exports = $root;

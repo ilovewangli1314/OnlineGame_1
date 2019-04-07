@@ -1,4 +1,5 @@
-import { game } from "./protos/game";
+import { room } from "./protos/room";
+import { protos } from "./protos/cluster";
 
 const {ccclass, property} = cc._decorator;
 
@@ -15,7 +16,7 @@ export default class Helloworld extends cc.Component {
         // init logic
         this.label.string = this.text;
 
-        let hero = game.Hero.create();
+        let hero = room.Hero.create();
         hero.Attack = 1;
         // let buffer  = awesomepackage.AwesomeMessage.encode(message).finish();
         // let decoded = awesomepackage.AwesomeMessage.decode(buffer);
@@ -30,19 +31,22 @@ export default class Helloworld extends cc.Component {
         };
 
         var join = function (data) {
-            cc.log(JSON.stringify(data));
-            if(data.code === 0) {
-                starx.on('onMessage', onMessage);
-                starx.notify("room.message", {name: "jianggang", content: "Hello world!"}, join);
+            let joinResponse = room.JoinResponse.decode(data);
+            if(joinResponse.Code === 0) {
+                cc.log("[starx] join success!");
+                // starx.on('onMessage', onMessage);
+                // starx.notify("room.message", {name: "jianggang", content: "Hello world!"}, join);
             }
         };
 
         var onNewUser = function (data) {
-            cc.log("[starx] onNewUser:" + JSON.stringify(data));
+            let newUser = protos.NewUser.decode(data);
+            cc.log("[starx] onNewUser:" + newUser.Content);
         };
 
         var onMembers = function (data) {
-            cc.log("[starx] onMembers: " + JSON.stringify(data));
+            let allMembers = protos.AllMembers.decode(data);
+            cc.log("[starx] onMembers: " + JSON.stringify(allMembers));
         };
 
         starx.init({host: '47.254.94.23', port: 3250, path: '/'}, function () {
