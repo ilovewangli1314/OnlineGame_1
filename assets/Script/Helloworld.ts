@@ -1,4 +1,4 @@
-import { awesomepackage } from "./protos/test1";
+import { game } from "./protos/game";
 
 const {ccclass, property} = cc._decorator;
 
@@ -15,13 +15,14 @@ export default class Helloworld extends cc.Component {
         // init logic
         this.label.string = this.text;
 
-        let message = awesomepackage.AwesomeMessage.create({ awesomeField: "hello" });
-        let buffer  = awesomepackage.AwesomeMessage.encode(message).finish();
-        let decoded = awesomepackage.AwesomeMessage.decode(buffer);
-        cc.log(buffer);
-        cc.log(decoded);
-        cc.log(JSON.stringify(decoded));
-        cc.log(decoded.awesomeField);
+        let hero = game.Hero.create();
+        hero.Attack = 1;
+        // let buffer  = awesomepackage.AwesomeMessage.encode(message).finish();
+        // let decoded = awesomepackage.AwesomeMessage.decode(buffer);
+        // cc.log(buffer);
+        // cc.log(decoded);
+        // cc.log(JSON.stringify(decoded));
+        cc.log(JSON.stringify(hero));
 
         let starx = window.starx;
         var onMessage = function (msg) {
