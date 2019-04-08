@@ -47,6 +47,12 @@ export default class Hero extends cc.Component {
         this._originPos = value;
     }
 
+    // callFunc on Hero die
+    _onDie: Function = null;
+    set onDie(value: Function) {
+        this._onDie = value;
+    }
+
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
@@ -80,6 +86,14 @@ export default class Hero extends cc.Component {
     }
     beAttacked(src: Hero) {
         this._heroData.Hp -= (src.heroData.Attack - this._heroData.Defense);
+        if (this._heroData.Hp <= 0) {
+            this.node.removeFromParent();
+            this.node.destroy();
+            if (this._onDie) this._onDie(this);
+
+            return;
+        }
+
         this.refresh();
     }
 

@@ -73,7 +73,7 @@ export default class MainCtrl extends cc.Component {
             hero.originPos = this.leftTeam.getPosWithParent(index, this.node);
 
             this.node.addChild(nodeHero);
-            this._myTeam.heros.push(hero);
+            this._myTeam.addHero(hero);
         }
 
         /**
@@ -94,7 +94,7 @@ export default class MainCtrl extends cc.Component {
             hero.originPos = this.rightTeam.getPosWithParent(index, this.node);
 
             this.node.addChild(nodeHero);
-            this._enemyTeam.heros.push(hero);
+            this._enemyTeam.addHero(hero);
         }
     }
 
@@ -111,8 +111,10 @@ export default class MainCtrl extends cc.Component {
         
         let callback = (dt: number) => {
             let isRoundEnd = this._teamArr[this._curTeamIdx].isRoundEnd();
+            let roundBegin = false;
             if (isRoundEnd) {
                 this._curTeamIdx = (++this._curTeamIdx % teamsCount);
+                roundBegin = true;
             }
 
             let srcTeam = this._teamArr[this._curTeamIdx];
@@ -120,6 +122,7 @@ export default class MainCtrl extends cc.Component {
                 cc.log("---Game End!");
                 return;
             }
+            if (roundBegin) srcTeam.beginRound();
 
             let targetTeam = this._teamArr[(this._curTeamIdx + 1) % teamsCount];
             if (targetTeam.isEmpty()) {

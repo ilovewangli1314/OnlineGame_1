@@ -27,13 +27,24 @@ export default class Team extends cc.Component {
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {}
+    onLoad () {
+        this._heros = [];
+    }
 
     start () {
 
     }
 
     // update (dt) {}
+
+    addHero(hero: Hero) {
+        hero.onDie = this.onHeroDie.bind(this);
+        this._heros.push(hero);
+    }
+    onHeroDie(hero: Hero) {
+        // TODO: can use fast remove
+        this._heros.splice(this._heros.indexOf(hero), 1);
+    }
 
     runAction(team: Team) {
         let targetHero = team.getHead();
