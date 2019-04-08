@@ -1,7 +1,7 @@
+const {ccclass, property} = cc._decorator;
+
 import { room } from "./protos/room";
 import { protos } from "./protos/cluster";
-
-const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class Helloworld extends cc.Component {
@@ -9,7 +9,7 @@ export default class Helloworld extends cc.Component {
     @property(cc.Label)
     label: cc.Label = null;
 
-    @property
+    @property(String)
     text: string = 'hello';
 
     start () {
