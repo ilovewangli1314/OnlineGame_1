@@ -17,13 +17,13 @@ export default class UICtrl extends cc.Component {
 
     // onLoad () {}
 
-    start() {
+    start(): void {
 
     }
 
     // update (dt) {}
 
-    restartGame() {
+    restartGame(): void {
         cc.director.loadScene("gameRoom");
     }
 }
