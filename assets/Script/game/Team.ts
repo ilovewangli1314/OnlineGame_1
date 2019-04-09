@@ -10,7 +10,7 @@
 
 import Hero from "./Hero";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class Team extends cc.Component {
@@ -27,30 +27,30 @@ export default class Team extends cc.Component {
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
+    onLoad(): void {
         this._heros = [];
     }
 
-    start () {
+    start(): void {
 
     }
 
-    // update (dt) {}
+    // update (dt): void {}
 
-    addHero(hero: Hero) {
+    addHero(hero: Hero): void {
         hero.onDie = this.onHeroDie.bind(this);
         this._heros.push(hero);
     }
-    onHeroDie(hero: Hero) {
+    onHeroDie(hero: Hero): void {
         // TODO: can use fast remove
         this._heros.splice(this._heros.indexOf(hero), 1);
     }
 
-    runAction(team: Team) {
+    runAction(team: Team): void {
         let targetHero = team.getHead();
         if (!this.isRoundEnd() && targetHero) {
             this._heros[this._turnIdx++].attack(targetHero);
-        }        
+        }
     }
 
     getHead(): Hero {
@@ -61,14 +61,14 @@ export default class Team extends cc.Component {
         return null;
     }
 
-    isRoundEnd() {
+    isRoundEnd(): boolean {
         return (this._turnIdx >= this._heros.length);
     }
-    beginRound() {
+    beginRound(): void {
         this._turnIdx = 0;
     }
 
-    isEmpty() {
+    isEmpty(): boolean {
         return (this._heros.length <= 0);
     }
 }

@@ -8,7 +8,7 @@
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
-const {ccclass, property, executeInEditMode, menu} = cc._decorator;
+const { ccclass, property, executeInEditMode, menu } = cc._decorator;
 
 @ccclass
 @executeInEditMode
@@ -34,11 +34,11 @@ export default class TeamLayout extends cc.Component {
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad() {
+    onLoad(): void {
         this.refreshDirection();
     }
 
-    refreshDirection() {
+    refreshDirection(): void {
         let multiple = (this.isLeft ? 1 : -1);
         this.node.scaleX = Math.abs(this.node.scaleX) * multiple;
         this.nodes.forEach(element => {
@@ -46,11 +46,11 @@ export default class TeamLayout extends cc.Component {
         });
     }
 
-    start () {
+    start(): void {
 
     }
 
-    // update (dt) {}
+    // update (dt): void {}
 
     getPosWithParent(idx: number, parent: cc.Node): cc.Vec2 {
         if (idx < 0 || idx >= this.nodes.length) {

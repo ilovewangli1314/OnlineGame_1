@@ -8,21 +8,11 @@
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
-const { ccclass, property } = cc._decorator;
+import { room } from "../../../protos/room";
 
-@ccclass
-export default class CompIndex extends cc.Component {
-
-    @property(Number)
-    idx: number = -1;
-
-    // LIFE-CYCLE CALLBACKS:
-
-    // onLoad () {}
-
-    start() {
-
+export default class HeroDataMgr {
+    static heros: room.Hero[] = [];
+    static addHero(hero: room.Hero) {
+        this.heros.push(hero);
     }
-
-    // update (dt) {}
 }

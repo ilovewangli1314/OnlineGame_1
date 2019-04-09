@@ -11,18 +11,31 @@
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class CompIndex extends cc.Component {
+export default class ReduceHp extends cc.Component {
 
-    @property(Number)
-    idx: number = -1;
+    @property(cc.Label)
+    labelNum: cc.Label = null;
+
+    _num: number = 0;
+    @property
+    set num(value: number) {
+        this._num = value;
+
+        this.labelNum.string = "" + value;
+    }
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {}
+    onLoad(): void {
+        this.node.getComponent(cc.Animation).on(cc.Animation.EventType.FINISHED, () => {
+            this.node.removeFromParent();
+            this.node.destroy();
+        })
+    }
 
-    start() {
+    start(): void {
 
     }
 
-    // update (dt) {}
+    // update (dt): void {}
 }
