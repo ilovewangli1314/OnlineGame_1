@@ -46,15 +46,14 @@ export class SkillCommand implements ICommand {
     srcHero: Hero = null;
     targetHero: Hero = null;
 
-    onComplete: Function = null;
-
     constructor(srcHero: Hero, targetHero: Hero) {
         this.srcHero = srcHero;
         this.targetHero = targetHero;
     }
 
     execute(): void {
-        EventMgr.emit(EventType.Game.ON_SKILL, this.srcHero, this.targetHero, () => {
+        let eventType = (this.targetHero ? EventType.Game.ON_SKILL_SINGLE : EventType.Game.ON_SKILL_AOE);
+        EventMgr.emit(eventType, this.srcHero, this.targetHero, () => {
             CommandMgr.executeNext();
         });
     }

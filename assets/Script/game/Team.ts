@@ -9,10 +9,12 @@
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 import Hero from "./Hero";
+import { EventMgr, EventType } from "../common/EventMgr";
 
-const { ccclass, property } = cc._decorator;
+const { ccclass, menu } = cc._decorator;
 
 @ccclass
+@menu("game/Team")
 export default class Team extends cc.Component {
 
     private _heros: Hero[] = [];
@@ -28,7 +30,20 @@ export default class Team extends cc.Component {
     // LIFE-CYCLE CALLBACKS:
 
     onLoad(): void {
-        this._heros = [];
+        EventMgr.on(EventType.Game.ON_SKILL_AOE, (src: Hero, target: Hero, onComplete: Function) => {
+            // 默认不攻击己方队伍的英雄(需要判断使用技能的英雄是否存在)
+            if (!src || src.belongTeam == this) {
+                return;
+            }
+
+            this._heros.forEach((hero: Hero) => {
+                hero.beAttacked(src);
+            });
+
+            if (onComplete) {
+                this.node.runAction(cc.sequence(cc.delayTime(1), cc.callFunc(onComplete)));
+            }
+        }, this);
     }
 
     start(): void {

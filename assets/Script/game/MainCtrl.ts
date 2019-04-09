@@ -73,7 +73,7 @@ export default class MainCtrl extends cc.Component {
         /**
 		!#zh 己方英雄固定在左边。
         */
-        this._myTeam = new Team();
+        this._myTeam = this.leftTeam.getComponent(Team);
         for (let index = 0; index < 6; index++) {
             let heroData = new room.Hero();
             heroData.Id = index + 1;
@@ -97,7 +97,7 @@ export default class MainCtrl extends cc.Component {
         /**
 		!#zh 敌方英雄固定在右边。
         */
-        this._enemyTeam = new Team();
+        this._enemyTeam = this.rightTeam.getComponent(Team);
         for (let index = 0; index < 6; index++) {
             let heroData = new room.Hero();
             heroData.Id = index + 1;

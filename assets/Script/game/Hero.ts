@@ -72,13 +72,9 @@ export default class Hero extends cc.Component {
 
         this.refresh();
 
-        EventMgr.on(EventType.Game.ON_SKILL, (src: Hero, target: Hero, onComplete: Function) => {
-            // 默认不攻击己方队伍的英雄(需要判断使用技能的英雄是否存在)
-            if (!src || src.belongTeam == this.belongTeam) {
-                return;
-            }
+        EventMgr.on(EventType.Game.ON_SKILL_SINGLE, (src: Hero, target: Hero, onComplete: Function) => {
             // 指定了目标的技能需要判断目标是否正确
-            if (target && target != this) {
+            if (target != this) {
                 return;
             }
 

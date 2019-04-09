@@ -38,7 +38,8 @@ export namespace EventType {
          * !#en The event type on skill trigger
          * !#zh 当技能触发时
          **/
-        static ON_SKILL: string = "game_on_skill";
+        static ON_SKILL_SINGLE: string = "game_on_skill_single";
+        static ON_SKILL_AOE: string = "game_on_skill_aoe";
 
         static SELECT_SKILL: string = "game_select_skill";
         static USE_SKILL: string = "game_use_skill";
