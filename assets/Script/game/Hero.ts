@@ -90,8 +90,8 @@ export default class Hero extends cc.Component {
     }
 
     die(): void {
-        EventMgr.targetOff(this);
         this.node.removeFromParent();
+        this.node.destroy();
 
         if (this._onDie) this._onDie(this);
         EventMgr.emit(EventType.Game.HERO_DIE, this);
