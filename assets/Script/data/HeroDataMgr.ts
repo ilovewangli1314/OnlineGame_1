@@ -8,11 +8,11 @@
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
-import { room } from "../../../protos/room";
+import { protos } from "../../../protos/game";
 
 export default class HeroDataMgr {
-    static heros: room.Hero[] = [];
-    static addHero(hero: room.Hero) {
+    static heros: protos.game.Hero[] = [];
+    static addHero(hero: protos.game.Hero) {
         this.heros.push(hero);
     }
 }

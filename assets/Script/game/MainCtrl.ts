@@ -10,12 +10,12 @@
 
 import TeamLayout from "./TeamLayout";
 import Hero from "./Hero";
-import { room } from "../protos/room";
 import Team from "./Team";
-import HeroDataMgr from "../data/HeroDataMgr";
+import HeroDataMgr from "./../data/HeroDataMgr";
 import SkillNode from "./skill/SkillNode";
-import { EventType, EventMgr } from "../common/EventMgr";
+import { EventType, EventMgr } from "./../common/EventMgr";
 import { CommandMgr, SkillCommand } from "./CommandMgr";
+import { pbgame } from "./../protos/game";
 
 const { ccclass, property, menu } = cc._decorator;
 
@@ -75,7 +75,7 @@ export default class MainCtrl extends cc.Component {
         */
         this._myTeam = this.leftTeam.getComponent(Team);
         for (let index = 0; index < 6; index++) {
-            let heroData = new room.Hero();
+            let heroData = new pbgame.Hero();
             heroData.Id = index + 1;
             heroData.Hp = 30 + Math.round(5 * Math.random());
             heroData.Mp = 100 + Math.round(5 * Math.random());
@@ -99,7 +99,7 @@ export default class MainCtrl extends cc.Component {
         */
         this._enemyTeam = this.rightTeam.getComponent(Team);
         for (let index = 0; index < 6; index++) {
-            let heroData = new room.Hero();
+            let heroData = new pbgame.Hero();
             heroData.Id = index + 1;
             heroData.Hp = 30 + Math.round(5 * Math.random());
             heroData.Mp = 100 + Math.round(5 * Math.random());
