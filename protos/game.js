@@ -294,13 +294,221 @@ $root.pbgame = (function() {
         return Hero;
     })();
 
+    pbgame.Team = (function() {
+
+        /**
+         * Properties of a Team.
+         * @memberof pbgame
+         * @interface ITeam
+         * @property {Array.<pbgame.IHero>|null} [Heros] Team Heros
+         */
+
+        /**
+         * Constructs a new Team.
+         * @memberof pbgame
+         * @classdesc Represents a Team.
+         * @implements ITeam
+         * @constructor
+         * @param {pbgame.ITeam=} [properties] Properties to set
+         */
+        function Team(properties) {
+            this.Heros = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Team Heros.
+         * @member {Array.<pbgame.IHero>} Heros
+         * @memberof pbgame.Team
+         * @instance
+         */
+        Team.prototype.Heros = $util.emptyArray;
+
+        /**
+         * Creates a new Team instance using the specified properties.
+         * @function create
+         * @memberof pbgame.Team
+         * @static
+         * @param {pbgame.ITeam=} [properties] Properties to set
+         * @returns {pbgame.Team} Team instance
+         */
+        Team.create = function create(properties) {
+            return new Team(properties);
+        };
+
+        /**
+         * Encodes the specified Team message. Does not implicitly {@link pbgame.Team.verify|verify} messages.
+         * @function encode
+         * @memberof pbgame.Team
+         * @static
+         * @param {pbgame.ITeam} message Team message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Team.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Heros != null && message.Heros.length)
+                for (var i = 0; i < message.Heros.length; ++i)
+                    $root.pbgame.Hero.encode(message.Heros[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified Team message, length delimited. Does not implicitly {@link pbgame.Team.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof pbgame.Team
+         * @static
+         * @param {pbgame.ITeam} message Team message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Team.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a Team message from the specified reader or buffer.
+         * @function decode
+         * @memberof pbgame.Team
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {pbgame.Team} Team
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Team.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.pbgame.Team();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.Heros && message.Heros.length))
+                        message.Heros = [];
+                    message.Heros.push($root.pbgame.Hero.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a Team message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof pbgame.Team
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {pbgame.Team} Team
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Team.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a Team message.
+         * @function verify
+         * @memberof pbgame.Team
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        Team.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Heros != null && message.hasOwnProperty("Heros")) {
+                if (!Array.isArray(message.Heros))
+                    return "Heros: array expected";
+                for (var i = 0; i < message.Heros.length; ++i) {
+                    var error = $root.pbgame.Hero.verify(message.Heros[i]);
+                    if (error)
+                        return "Heros." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a Team message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof pbgame.Team
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {pbgame.Team} Team
+         */
+        Team.fromObject = function fromObject(object) {
+            if (object instanceof $root.pbgame.Team)
+                return object;
+            var message = new $root.pbgame.Team();
+            if (object.Heros) {
+                if (!Array.isArray(object.Heros))
+                    throw TypeError(".pbgame.Team.Heros: array expected");
+                message.Heros = [];
+                for (var i = 0; i < object.Heros.length; ++i) {
+                    if (typeof object.Heros[i] !== "object")
+                        throw TypeError(".pbgame.Team.Heros: object expected");
+                    message.Heros[i] = $root.pbgame.Hero.fromObject(object.Heros[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a Team message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof pbgame.Team
+         * @static
+         * @param {pbgame.Team} message Team
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        Team.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.Heros = [];
+            if (message.Heros && message.Heros.length) {
+                object.Heros = [];
+                for (var j = 0; j < message.Heros.length; ++j)
+                    object.Heros[j] = $root.pbgame.Hero.toObject(message.Heros[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this Team to JSON.
+         * @function toJSON
+         * @memberof pbgame.Team
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        Team.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return Team;
+    })();
+
     pbgame.Scene = (function() {
 
         /**
          * Properties of a Scene.
          * @memberof pbgame
          * @interface IScene
-         * @property {Array.<pbgame.IHero>|null} [Heros] Scene Heros
+         * @property {Array.<pbgame.ITeam>|null} [teams] Scene teams
          */
 
         /**
@@ -312,7 +520,7 @@ $root.pbgame = (function() {
          * @param {pbgame.IScene=} [properties] Properties to set
          */
         function Scene(properties) {
-            this.Heros = [];
+            this.teams = [];
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -320,12 +528,12 @@ $root.pbgame = (function() {
         }
 
         /**
-         * Scene Heros.
-         * @member {Array.<pbgame.IHero>} Heros
+         * Scene teams.
+         * @member {Array.<pbgame.ITeam>} teams
          * @memberof pbgame.Scene
          * @instance
          */
-        Scene.prototype.Heros = $util.emptyArray;
+        Scene.prototype.teams = $util.emptyArray;
 
         /**
          * Creates a new Scene instance using the specified properties.
@@ -351,9 +559,9 @@ $root.pbgame = (function() {
         Scene.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
-            if (message.Heros != null && message.Heros.length)
-                for (var i = 0; i < message.Heros.length; ++i)
-                    $root.pbgame.Hero.encode(message.Heros[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            if (message.teams != null && message.teams.length)
+                for (var i = 0; i < message.teams.length; ++i)
+                    $root.pbgame.Team.encode(message.teams[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
             return writer;
         };
 
@@ -389,9 +597,9 @@ $root.pbgame = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    if (!(message.Heros && message.Heros.length))
-                        message.Heros = [];
-                    message.Heros.push($root.pbgame.Hero.decode(reader, reader.uint32()));
+                    if (!(message.teams && message.teams.length))
+                        message.teams = [];
+                    message.teams.push($root.pbgame.Team.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -428,13 +636,13 @@ $root.pbgame = (function() {
         Scene.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            if (message.Heros != null && message.hasOwnProperty("Heros")) {
-                if (!Array.isArray(message.Heros))
-                    return "Heros: array expected";
-                for (var i = 0; i < message.Heros.length; ++i) {
-                    var error = $root.pbgame.Hero.verify(message.Heros[i]);
+            if (message.teams != null && message.hasOwnProperty("teams")) {
+                if (!Array.isArray(message.teams))
+                    return "teams: array expected";
+                for (var i = 0; i < message.teams.length; ++i) {
+                    var error = $root.pbgame.Team.verify(message.teams[i]);
                     if (error)
-                        return "Heros." + error;
+                        return "teams." + error;
                 }
             }
             return null;
@@ -452,14 +660,14 @@ $root.pbgame = (function() {
             if (object instanceof $root.pbgame.Scene)
                 return object;
             var message = new $root.pbgame.Scene();
-            if (object.Heros) {
-                if (!Array.isArray(object.Heros))
-                    throw TypeError(".pbgame.Scene.Heros: array expected");
-                message.Heros = [];
-                for (var i = 0; i < object.Heros.length; ++i) {
-                    if (typeof object.Heros[i] !== "object")
-                        throw TypeError(".pbgame.Scene.Heros: object expected");
-                    message.Heros[i] = $root.pbgame.Hero.fromObject(object.Heros[i]);
+            if (object.teams) {
+                if (!Array.isArray(object.teams))
+                    throw TypeError(".pbgame.Scene.teams: array expected");
+                message.teams = [];
+                for (var i = 0; i < object.teams.length; ++i) {
+                    if (typeof object.teams[i] !== "object")
+                        throw TypeError(".pbgame.Scene.teams: object expected");
+                    message.teams[i] = $root.pbgame.Team.fromObject(object.teams[i]);
                 }
             }
             return message;
@@ -479,11 +687,11 @@ $root.pbgame = (function() {
                 options = {};
             var object = {};
             if (options.arrays || options.defaults)
-                object.Heros = [];
-            if (message.Heros && message.Heros.length) {
-                object.Heros = [];
-                for (var j = 0; j < message.Heros.length; ++j)
-                    object.Heros[j] = $root.pbgame.Hero.toObject(message.Heros[j], options);
+                object.teams = [];
+            if (message.teams && message.teams.length) {
+                object.teams = [];
+                for (var j = 0; j < message.teams.length; ++j)
+                    object.teams[j] = $root.pbgame.Team.toObject(message.teams[j], options);
             }
             return object;
         };

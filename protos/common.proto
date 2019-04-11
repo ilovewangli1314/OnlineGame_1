@@ -3,6 +3,12 @@ syntax = "proto3";
 package pbcommon;
 
 // Response represents a common response
+message Request {
+  int32 Code = 1;
+  string Msg = 2;
+}
+
+// Response represents a common response
 message Response {
   int32 Code = 1;
   string Msg = 2;

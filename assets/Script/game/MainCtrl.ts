@@ -11,11 +11,11 @@
 import TeamLayout from "./TeamLayout";
 import Hero from "./Hero";
 import Team from "./Team";
-import HeroDataMgr from "./../data/HeroDataMgr";
+import GameDataMgr from "./../data/GameDataMgr";
 import SkillNode from "./skill/SkillNode";
 import { EventType, EventMgr } from "./../common/EventMgr";
 import { CommandMgr, SkillCommand } from "./CommandMgr";
-import { pbgame } from "./../protos/game";
+import { pbgame } from "../protos/game";
 
 const { ccclass, property, menu } = cc._decorator;
 
@@ -67,26 +67,21 @@ export default class MainCtrl extends cc.Component {
         this.addEventListeners();
 
         this.simulateActions();
+
+        let starx = window["starx"];
+        starx.on("onRunAction", this.onRunAction.bind(this));
     }
 
     initAllHeros(): void {
         /**
 		!#zh 己方英雄固定在左边。
         */
+        let sceneData = GameDataMgr.scene;
         this._myTeam = this.leftTeam.getComponent(Team);
         for (let index = 0; index < 6; index++) {
-            let heroData = new pbgame.Hero();
-            heroData.Id = index + 1;
-            heroData.Hp = 30 + Math.round(5 * Math.random());
-            heroData.Mp = 100 + Math.round(5 * Math.random());
-            heroData.Attack = 10 + Math.round(5 * Math.random());
-            heroData.Defense = 3 + Math.round(2 * Math.random());
-            // Fixme: for test
-            HeroDataMgr.addHero(heroData);
-
             let nodeHero = cc.instantiate(this.prefabHero);
             let hero = nodeHero.getComponent(Hero);
-            hero.heroData = heroData;
+            hero.heroData = GameDataMgr.getHero(0, index);
             hero.belongTeam = this._myTeam;
             hero.originPos = this.leftTeam.getPosWithParent(index, this.node);
 
@@ -99,16 +94,9 @@ export default class MainCtrl extends cc.Component {
         */
         this._enemyTeam = this.rightTeam.getComponent(Team);
         for (let index = 0; index < 6; index++) {
-            let heroData = new pbgame.Hero();
-            heroData.Id = index + 1;
-            heroData.Hp = 30 + Math.round(5 * Math.random());
-            heroData.Mp = 100 + Math.round(5 * Math.random());
-            heroData.Attack = 10 + Math.round(5 * Math.random());
-            heroData.Defense = 3 + Math.round(2 * Math.random());
-
             let nodeHero = cc.instantiate(this.prefabHero);
             let hero = nodeHero.getComponent(Hero);
-            hero.heroData = heroData;
+            hero.heroData = GameDataMgr.getHero(1, index);
             hero.belongTeam = this._enemyTeam;
             hero.originPos = this.rightTeam.getPosWithParent(index, this.node);
 
@@ -164,6 +152,10 @@ export default class MainCtrl extends cc.Component {
         this._teamArr.push(this._enemyTeam);
 
         this.schedule(this.runAction, 0.75);
+    }
+
+    private onRunAction(): void {
+
     }
 
     private runAction(): void {

@@ -116,11 +116,101 @@ export namespace pbgame {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a Team. */
+    interface ITeam {
+
+        /** Team Heros */
+        Heros?: (pbgame.IHero[]|null);
+    }
+
+    /** Represents a Team. */
+    class Team implements ITeam {
+
+        /**
+         * Constructs a new Team.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: pbgame.ITeam);
+
+        /** Team Heros. */
+        public Heros: pbgame.IHero[];
+
+        /**
+         * Creates a new Team instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns Team instance
+         */
+        public static create(properties?: pbgame.ITeam): pbgame.Team;
+
+        /**
+         * Encodes the specified Team message. Does not implicitly {@link pbgame.Team.verify|verify} messages.
+         * @param message Team message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: pbgame.ITeam, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified Team message, length delimited. Does not implicitly {@link pbgame.Team.verify|verify} messages.
+         * @param message Team message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: pbgame.ITeam, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a Team message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns Team
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): pbgame.Team;
+
+        /**
+         * Decodes a Team message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns Team
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): pbgame.Team;
+
+        /**
+         * Verifies a Team message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a Team message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns Team
+         */
+        public static fromObject(object: { [k: string]: any }): pbgame.Team;
+
+        /**
+         * Creates a plain object from a Team message. Also converts values to other types if specified.
+         * @param message Team
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: pbgame.Team, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this Team to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a Scene. */
     interface IScene {
 
-        /** Scene Heros */
-        Heros?: (pbgame.IHero[]|null);
+        /** Scene teams */
+        teams?: (pbgame.ITeam[]|null);
     }
 
     /** Represents a Scene. */
@@ -132,8 +222,8 @@ export namespace pbgame {
          */
         constructor(properties?: pbgame.IScene);
 
-        /** Scene Heros. */
-        public Heros: pbgame.IHero[];
+        /** Scene teams. */
+        public teams: pbgame.ITeam[];
 
         /**
          * Creates a new Scene instance using the specified properties.

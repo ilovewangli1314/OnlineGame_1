@@ -8,11 +8,18 @@
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
-import { protos } from "../../../protos/game";
+import { pbgame } from "./../protos/game";
 
-export default class HeroDataMgr {
-    static heros: protos.game.Hero[] = [];
-    static addHero(hero: protos.game.Hero) {
-        this.heros.push(hero);
+export default class GameDataMgr {
+    static scene: pbgame.Scene = null;
+
+    static onGameBegin(data: any): void {
+        this.scene = pbgame.Scene.decode(data);
+    }
+
+    static getHero(teamIdx: number, heroIdx: number): pbgame.Hero {
+        let team = this.scene.teams[teamIdx];
+        let hero = team.Heros[heroIdx];
+        return <pbgame.Hero>hero;
     }
 }
