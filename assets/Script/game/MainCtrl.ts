@@ -124,6 +124,11 @@ export default class MainCtrl extends cc.Component {
             if (this._selectedSkill) {
                 // CommandMgr.addCommand(new SkillCommand(this._selectedSkill.hero, target));
 
+                // 不允许攻击己方队伍
+                if (target.belongTeam == this._selectedSkill.hero.belongTeam) {
+                    return;
+                }
+
                 let pbMsg = pbgame.UseSkill.create({
                     SrcHeroId: this._selectedSkill.hero.heroData.Id,
                     TargetHeroId: target.heroData.Id,
