@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package pbgame;
+
+message Hero {
+  int32 Id = 1;
+  int32 Hp = 2;
+  int32 Mp = 3;
+  int32 Attack = 4;
+  int32 Defense = 5;
+}
+
+message Team {
+  repeated Hero Heros = 1;  
+}
+
+message Scene {
+  int32 randomSeed = 1;
+  repeated Team teams = 2;
+}
+
+message Action {
+  int32 SrcHeroId = 1;
+  int32 TargetHeroId = 2;
+  int32 SkillType = 3;
+}
+
+message UseSkill {
+  int32 SrcHeroId = 1;
+  int32 TargetHeroId = 2;
+  int32 SkillType = 3;
+}
+
+message JoinRequest {
+}
+
+message JoinResponse {
+  int32 Code = 1;
+}
