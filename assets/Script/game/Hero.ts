@@ -8,10 +8,10 @@
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
-import { room } from "./../protos/room";
 import ReduceHp from "./anims/ReduceHp";
 import { EventType, EventMgr } from "../common/EventMgr";
 import Team from "./Team";
+import { pbgame } from "./../protos/game";
 
 const { ccclass, property, menu } = cc._decorator;
 
@@ -19,11 +19,11 @@ const { ccclass, property, menu } = cc._decorator;
 @menu("game/Hero")
 export default class Hero extends cc.Component {
 
-    private _heroData: room.Hero = null;
-    get heroData(): room.Hero {
+    private _heroData: pbgame.Hero = null;
+    get heroData(): pbgame.Hero {
         return this._heroData;
     }
-    set heroData(value: room.Hero) {
+    set heroData(value: pbgame.Hero) {
         this._heroData = value;
 
         this.refresh();

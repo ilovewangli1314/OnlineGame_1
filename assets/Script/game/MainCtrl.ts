@@ -10,12 +10,15 @@
 
 import TeamLayout from "./TeamLayout";
 import Hero from "./Hero";
-import { room } from "../protos/room";
 import Team from "./Team";
-import HeroDataMgr from "../data/HeroDataMgr";
+import GameDataMgr from "./../data/GameDataMgr";
 import SkillNode from "./skill/SkillNode";
-import { EventType, EventMgr } from "../common/EventMgr";
+import { EventType, EventMgr } from "./../common/EventMgr";
 import { CommandMgr, SkillCommand } from "./CommandMgr";
+import { pbgame } from "../protos/game";
+import MyMath from "../common/MyMath";
+import { isLong } from "long";
+import { pbcommon } from "../../../protos/common";
 
 const { ccclass, property, menu } = cc._decorator;
 
@@ -66,7 +69,15 @@ export default class MainCtrl extends cc.Component {
         this.initAllHeros();
         this.addEventListeners();
 
-        this.simulateActions();
+        // this.simulateActions();
+
+        // 初始化随机数种子
+        MyMath.randomSeed = GameDataMgr.scene.randomSeed;
+
+        // 监听服务器push的指令
+        let starx = window["starx"];
+        starx.on("onRunAction", this.onRunAction.bind(this));
+        starx.on("onUseSkill", this.onUseSkill.bind(this));
     }
 
     initAllHeros(): void {
@@ -75,46 +86,32 @@ export default class MainCtrl extends cc.Component {
         */
         this._myTeam = this.leftTeam.getComponent(Team);
         for (let index = 0; index < 6; index++) {
-            let heroData = new room.Hero();
-            heroData.Id = index + 1;
-            heroData.Hp = 30 + Math.round(5 * Math.random());
-            heroData.Mp = 100 + Math.round(5 * Math.random());
-            heroData.Attack = 10 + Math.round(5 * Math.random());
-            heroData.Defense = 3 + Math.round(2 * Math.random());
-            // Fixme: for test
-            HeroDataMgr.addHero(heroData);
-
             let nodeHero = cc.instantiate(this.prefabHero);
             let hero = nodeHero.getComponent(Hero);
-            hero.heroData = heroData;
+            hero.heroData = GameDataMgr.getHero(0, index);
             hero.belongTeam = this._myTeam;
             hero.originPos = this.leftTeam.getPosWithParent(index, this.node);
 
             this.node.addChild(nodeHero);
             this._myTeam.addHero(hero);
         }
+        this._teamArr.push(this._myTeam);
 
         /**
 		!#zh 敌方英雄固定在右边。
         */
         this._enemyTeam = this.rightTeam.getComponent(Team);
         for (let index = 0; index < 6; index++) {
-            let heroData = new room.Hero();
-            heroData.Id = index + 1;
-            heroData.Hp = 30 + Math.round(5 * Math.random());
-            heroData.Mp = 100 + Math.round(5 * Math.random());
-            heroData.Attack = 10 + Math.round(5 * Math.random());
-            heroData.Defense = 3 + Math.round(2 * Math.random());
-
             let nodeHero = cc.instantiate(this.prefabHero);
             let hero = nodeHero.getComponent(Hero);
-            hero.heroData = heroData;
+            hero.heroData = GameDataMgr.getHero(1, index);
             hero.belongTeam = this._enemyTeam;
             hero.originPos = this.rightTeam.getPosWithParent(index, this.node);
 
             this.node.addChild(nodeHero);
             this._enemyTeam.addHero(hero);
         }
+        this._teamArr.push(this._enemyTeam);
     }
 
     addEventListeners(): void {
@@ -125,7 +122,22 @@ export default class MainCtrl extends cc.Component {
         }, this);
         EventMgr.on(EventType.Game.USE_SKILL, (target: Hero) => {
             if (this._selectedSkill) {
-                CommandMgr.addCommand(new SkillCommand(this._selectedSkill.hero, target));
+                // CommandMgr.addCommand(new SkillCommand(this._selectedSkill.hero, target));
+
+                // 不允许攻击己方队伍
+                if (target.belongTeam == this._selectedSkill.hero.belongTeam) {
+                    return;
+                }
+
+                let pbMsg = pbgame.UseSkill.create({
+                    SrcHeroId: this._selectedSkill.hero.heroData.Id,
+                    TargetHeroId: target.heroData.Id,
+                    SkillType: 0
+                })
+                window["starx"].request("entry.useskill", pbgame.UseSkill.encode(pbMsg).finish(), (msg: any) => {
+                    let pbObj = pbcommon.Response.decode(msg);
+                    cc.log("useskill result: " + pbObj.Code);
+                });
             }
 
             this._selectedSkill = null;
@@ -159,11 +171,34 @@ export default class MainCtrl extends cc.Component {
     //     cc.log("onclick!");
     // }
 
-    private simulateActions(): void {
-        this._teamArr.push(this._myTeam);
-        this._teamArr.push(this._enemyTeam);
+    // private simulateActions(): void {
+    //     this._teamArr.push(this._myTeam);
+    //     this._teamArr.push(this._enemyTeam);
 
-        this.schedule(this.runAction, 0.75);
+    //     this.schedule(this.runAction, 0.75);
+    // }
+
+    private onRunAction(msg: any): void {
+        let pbAction = pbgame.Action.decode(msg);
+        let srcHero = this.getHero(pbAction.SrcHeroId);
+        let targetHero = this.getHero(pbAction.TargetHeroId);
+        srcHero.attack(targetHero);
+    }
+
+    public getHero(heroId: number): Hero {
+        if (heroId < 0) {
+            return null;
+        }
+
+        for (const team of this._teamArr) {
+            for (const hero of team.heros) {
+                if (hero.heroData.Id == heroId) {
+                    return hero;
+                }
+            }
+        }
+
+        return null;
     }
 
     private runAction(): void {
@@ -183,7 +218,7 @@ export default class MainCtrl extends cc.Component {
         let srcTeam = this._teamArr[this._curTeamIdx];
         if (srcTeam.isEmpty()) {
             cc.log("---Game End!");
-            this.unschedule(this.runAction);
+            // this.unschedule(this.runAction);
 
             return;
         }
@@ -191,7 +226,7 @@ export default class MainCtrl extends cc.Component {
         let targetTeam = this._teamArr[(this._curTeamIdx + 1) % teamsCount];
         if (targetTeam.isEmpty()) {
             cc.log("---Game End!");
-            this.unschedule(this.runAction);
+            // this.unschedule(this.runAction);
 
             return;
         }
@@ -211,5 +246,14 @@ export default class MainCtrl extends cc.Component {
         } else {
             srcTeam.runAction(targetTeam);
         }
+    }
+
+    onUseSkill(msg: any): void {
+        let pbObj = pbgame.UseSkill.decode(msg);
+        let srcHero = this.getHero(pbObj.SrcHeroId);
+        let targetHero = this.getHero(pbObj.TargetHeroId);
+
+        let eventType = (targetHero ? EventType.Game.ON_SKILL_SINGLE : EventType.Game.ON_SKILL_AOE);
+        EventMgr.emit(eventType, srcHero, targetHero, null);
     }
 }

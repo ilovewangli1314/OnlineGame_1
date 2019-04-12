@@ -1,38 +1,37 @@
-const { ccclass, property } = cc._decorator;
+import { pbgame } from "./protos/game";
+import { pbcommon } from "./protos/common";
+import GameDataMgr from "./data/GameDataMgr";
+import MyMath from "./common/MyMath";
 
-import { room } from "./protos/room";
-import { protos } from "./protos/cluster";
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class Helloworld extends cc.Component {
 
     @property(cc.Label)
-    label: cc.Label = null;
-
-    @property(String)
-    text: string = 'hello';
+    labelAlert: cc.Label = null;
 
     start(): void {
         // init logic
-        this.label.string = this.text;
+        this.labelAlert.string = "waitting for other player...";
 
-        let hero = room.Hero.create();
-        hero.Attack = 1;
+        let hero = pbgame.Hero.create();
+        // hero.Attack = 1;
         // let buffer  = awesomepackage.AwesomeMessage.encode(message).finish();
         // let decoded = awesomepackage.AwesomeMessage.decode(buffer);
         // cc.log(buffer);
         // cc.log(decoded);
         // cc.log(JSON.stringify(decoded));
-        cc.log(JSON.stringify(hero));
+        // cc.log(JSON.stringify(hero));
 
         let starx = window["starx"];
         var onMessage = function (msg) {
             cc.log("[starx] onMessage:" + JSON.stringify(msg));
         };
 
-        var join = function (data) {
-            let joinResponse = room.JoinResponse.decode(data);
-            if (joinResponse.Code === 0) {
+        var join = function (data: any) {
+            let joinResponse = pbcommon.Response.decode(data);
+            if (joinResponse.Code == 0) {
                 cc.log("[starx] join success!");
                 // starx.on('onMessage', onMessage);
                 // starx.notify("room.message", {name: "jianggang", content: "Hello world!"}, join);
@@ -40,20 +39,26 @@ export default class Helloworld extends cc.Component {
         };
 
         var onNewUser = function (data) {
-            let newUser = protos.NewUser.decode(data);
-            cc.log("[starx] onNewUser:" + newUser.Content);
+            // let newUser = protos.NewUser.decode(data);
+            // cc.log("[starx] onNewUser:" + newUser.Content);
         };
 
-        var onMembers = function (data) {
-            let allMembers = protos.AllMembers.decode(data);
-            cc.log("[starx] onMembers: " + JSON.stringify(allMembers));
+        var onGameBegin = function (data: any): void {
+            GameDataMgr.onGameBegin(data);
+            // let allMembers = protos.AllMembers.decode(data);
+            // cc.log("[starx] onMembers: " + JSON.stringify(allMembers));
+
+            cc.director.loadScene("game");
         };
 
-        starx.init({ host: '47.254.94.23', port: 3250, path: '/' }, function () {
+        let host = "47.254.94.23";
+        host = "127.0.0.1";
+        starx.init({ host: host, port: 3250, path: '/' }, function () {
             cc.log("initialized");
-            starx.on("onNewUser", onNewUser);
-            starx.on("onMembers", onMembers);
-            starx.request("room.join", {}, join);
+            // starx.on("onNewUser", onNewUser);
+            starx.on("onGameBegin", onGameBegin);
+            let msg = pbgame.JoinRequest.encode(pbgame.JoinRequest.create()).finish();
+            starx.request("entry.join", msg, join);
         })
     }
 }
