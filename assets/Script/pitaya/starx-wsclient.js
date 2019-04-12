@@ -274,7 +274,8 @@
       var Builder = decodeIO_encoder.build(route);
       msg = new Builder(msg).encodeNB();
     } else {
-      msg = Protocol.strencode(JSON.stringify(msg));
+      // Fixme: default encode protobuf raw data
+      // msg = Protocol.strencode(JSON.stringify(msg));
     }
 
     var compressRoute = 0;

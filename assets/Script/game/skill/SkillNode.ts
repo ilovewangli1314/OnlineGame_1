@@ -11,6 +11,8 @@
 import { EventType, EventMgr } from "../../common/EventMgr";
 import Hero from "../Hero";
 import { CommandMgr, SkillCommand } from "../CommandMgr";
+import { pbgame } from "../../protos/game";
+import { pbcommon } from "../../protos/common";
 
 const { ccclass, property, menu } = cc._decorator;
 
@@ -76,7 +78,16 @@ export default class SkillNode extends cc.Component {
             }
         } else {
             if (this.toggle.isChecked) {
-                CommandMgr.addCommand(new SkillCommand(this._hero, null));
+                // CommandMgr.addCommand(new SkillCommand(this._hero, null));
+                let pbMsg = pbgame.UseSkill.create({
+                    SrcHeroId: this._hero.heroData.Id,
+                    TargetHeroId: -1,
+                    SkillType: 0
+                })
+                window["starx"].request("entry.useskill", pbgame.UseSkill.encode(pbMsg).finish(), (msg: any) => {
+                    let pbObj = pbcommon.Response.decode(msg);
+                    cc.log("useskill result: " + pbObj.Code);
+                });
             }
 
             this.toggle.isChecked = false;

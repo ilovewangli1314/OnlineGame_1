@@ -57,7 +57,8 @@ export default class Helloworld extends cc.Component {
             cc.log("initialized");
             // starx.on("onNewUser", onNewUser);
             starx.on("onGameBegin", onGameBegin);
-            starx.request("entry.join", {}, join);
+            let msg = pbgame.JoinRequest.encode(pbgame.JoinRequest.create()).finish();
+            starx.request("entry.join", msg, join);
         })
     }
 }

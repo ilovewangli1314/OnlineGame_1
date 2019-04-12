@@ -404,6 +404,108 @@ export namespace pbgame {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a UseSkill. */
+    interface IUseSkill {
+
+        /** UseSkill SrcHeroId */
+        SrcHeroId?: (number|null);
+
+        /** UseSkill TargetHeroId */
+        TargetHeroId?: (number|null);
+
+        /** UseSkill SkillType */
+        SkillType?: (number|null);
+    }
+
+    /** Represents a UseSkill. */
+    class UseSkill implements IUseSkill {
+
+        /**
+         * Constructs a new UseSkill.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: pbgame.IUseSkill);
+
+        /** UseSkill SrcHeroId. */
+        public SrcHeroId: number;
+
+        /** UseSkill TargetHeroId. */
+        public TargetHeroId: number;
+
+        /** UseSkill SkillType. */
+        public SkillType: number;
+
+        /**
+         * Creates a new UseSkill instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns UseSkill instance
+         */
+        public static create(properties?: pbgame.IUseSkill): pbgame.UseSkill;
+
+        /**
+         * Encodes the specified UseSkill message. Does not implicitly {@link pbgame.UseSkill.verify|verify} messages.
+         * @param message UseSkill message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: pbgame.IUseSkill, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified UseSkill message, length delimited. Does not implicitly {@link pbgame.UseSkill.verify|verify} messages.
+         * @param message UseSkill message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: pbgame.IUseSkill, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a UseSkill message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns UseSkill
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): pbgame.UseSkill;
+
+        /**
+         * Decodes a UseSkill message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns UseSkill
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): pbgame.UseSkill;
+
+        /**
+         * Verifies a UseSkill message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a UseSkill message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns UseSkill
+         */
+        public static fromObject(object: { [k: string]: any }): pbgame.UseSkill;
+
+        /**
+         * Creates a plain object from a UseSkill message. Also converts values to other types if specified.
+         * @param message UseSkill
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: pbgame.UseSkill, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this UseSkill to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a JoinRequest. */
     interface IJoinRequest {
     }

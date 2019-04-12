@@ -965,6 +965,238 @@ $root.pbgame = (function() {
         return Action;
     })();
 
+    pbgame.UseSkill = (function() {
+
+        /**
+         * Properties of a UseSkill.
+         * @memberof pbgame
+         * @interface IUseSkill
+         * @property {number|null} [SrcHeroId] UseSkill SrcHeroId
+         * @property {number|null} [TargetHeroId] UseSkill TargetHeroId
+         * @property {number|null} [SkillType] UseSkill SkillType
+         */
+
+        /**
+         * Constructs a new UseSkill.
+         * @memberof pbgame
+         * @classdesc Represents a UseSkill.
+         * @implements IUseSkill
+         * @constructor
+         * @param {pbgame.IUseSkill=} [properties] Properties to set
+         */
+        function UseSkill(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * UseSkill SrcHeroId.
+         * @member {number} SrcHeroId
+         * @memberof pbgame.UseSkill
+         * @instance
+         */
+        UseSkill.prototype.SrcHeroId = 0;
+
+        /**
+         * UseSkill TargetHeroId.
+         * @member {number} TargetHeroId
+         * @memberof pbgame.UseSkill
+         * @instance
+         */
+        UseSkill.prototype.TargetHeroId = 0;
+
+        /**
+         * UseSkill SkillType.
+         * @member {number} SkillType
+         * @memberof pbgame.UseSkill
+         * @instance
+         */
+        UseSkill.prototype.SkillType = 0;
+
+        /**
+         * Creates a new UseSkill instance using the specified properties.
+         * @function create
+         * @memberof pbgame.UseSkill
+         * @static
+         * @param {pbgame.IUseSkill=} [properties] Properties to set
+         * @returns {pbgame.UseSkill} UseSkill instance
+         */
+        UseSkill.create = function create(properties) {
+            return new UseSkill(properties);
+        };
+
+        /**
+         * Encodes the specified UseSkill message. Does not implicitly {@link pbgame.UseSkill.verify|verify} messages.
+         * @function encode
+         * @memberof pbgame.UseSkill
+         * @static
+         * @param {pbgame.IUseSkill} message UseSkill message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        UseSkill.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.SrcHeroId != null && message.hasOwnProperty("SrcHeroId"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.SrcHeroId);
+            if (message.TargetHeroId != null && message.hasOwnProperty("TargetHeroId"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.TargetHeroId);
+            if (message.SkillType != null && message.hasOwnProperty("SkillType"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.SkillType);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified UseSkill message, length delimited. Does not implicitly {@link pbgame.UseSkill.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof pbgame.UseSkill
+         * @static
+         * @param {pbgame.IUseSkill} message UseSkill message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        UseSkill.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a UseSkill message from the specified reader or buffer.
+         * @function decode
+         * @memberof pbgame.UseSkill
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {pbgame.UseSkill} UseSkill
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        UseSkill.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.pbgame.UseSkill();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.SrcHeroId = reader.int32();
+                    break;
+                case 2:
+                    message.TargetHeroId = reader.int32();
+                    break;
+                case 3:
+                    message.SkillType = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a UseSkill message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof pbgame.UseSkill
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {pbgame.UseSkill} UseSkill
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        UseSkill.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a UseSkill message.
+         * @function verify
+         * @memberof pbgame.UseSkill
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        UseSkill.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.SrcHeroId != null && message.hasOwnProperty("SrcHeroId"))
+                if (!$util.isInteger(message.SrcHeroId))
+                    return "SrcHeroId: integer expected";
+            if (message.TargetHeroId != null && message.hasOwnProperty("TargetHeroId"))
+                if (!$util.isInteger(message.TargetHeroId))
+                    return "TargetHeroId: integer expected";
+            if (message.SkillType != null && message.hasOwnProperty("SkillType"))
+                if (!$util.isInteger(message.SkillType))
+                    return "SkillType: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a UseSkill message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof pbgame.UseSkill
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {pbgame.UseSkill} UseSkill
+         */
+        UseSkill.fromObject = function fromObject(object) {
+            if (object instanceof $root.pbgame.UseSkill)
+                return object;
+            var message = new $root.pbgame.UseSkill();
+            if (object.SrcHeroId != null)
+                message.SrcHeroId = object.SrcHeroId | 0;
+            if (object.TargetHeroId != null)
+                message.TargetHeroId = object.TargetHeroId | 0;
+            if (object.SkillType != null)
+                message.SkillType = object.SkillType | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a UseSkill message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof pbgame.UseSkill
+         * @static
+         * @param {pbgame.UseSkill} message UseSkill
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        UseSkill.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.SrcHeroId = 0;
+                object.TargetHeroId = 0;
+                object.SkillType = 0;
+            }
+            if (message.SrcHeroId != null && message.hasOwnProperty("SrcHeroId"))
+                object.SrcHeroId = message.SrcHeroId;
+            if (message.TargetHeroId != null && message.hasOwnProperty("TargetHeroId"))
+                object.TargetHeroId = message.TargetHeroId;
+            if (message.SkillType != null && message.hasOwnProperty("SkillType"))
+                object.SkillType = message.SkillType;
+            return object;
+        };
+
+        /**
+         * Converts this UseSkill to JSON.
+         * @function toJSON
+         * @memberof pbgame.UseSkill
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        UseSkill.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return UseSkill;
+    })();
+
     pbgame.JoinRequest = (function() {
 
         /**

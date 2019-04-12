@@ -18,6 +18,7 @@ import { CommandMgr, SkillCommand } from "./CommandMgr";
 import { pbgame } from "../protos/game";
 import MyMath from "../common/MyMath";
 import { isLong } from "long";
+import { pbcommon } from "../../../protos/common";
 
 const { ccclass, property, menu } = cc._decorator;
 
@@ -72,8 +73,11 @@ export default class MainCtrl extends cc.Component {
 
         // 初始化随机数种子
         MyMath.randomSeed = GameDataMgr.scene.randomSeed;
+
+        // 监听服务器push的指令
         let starx = window["starx"];
         starx.on("onRunAction", this.onRunAction.bind(this));
+        starx.on("onUseSkill", this.onUseSkill.bind(this));
     }
 
     initAllHeros(): void {
@@ -118,7 +122,17 @@ export default class MainCtrl extends cc.Component {
         }, this);
         EventMgr.on(EventType.Game.USE_SKILL, (target: Hero) => {
             if (this._selectedSkill) {
-                CommandMgr.addCommand(new SkillCommand(this._selectedSkill.hero, target));
+                // CommandMgr.addCommand(new SkillCommand(this._selectedSkill.hero, target));
+
+                let pbMsg = pbgame.UseSkill.create({
+                    SrcHeroId: this._selectedSkill.hero.heroData.Id,
+                    TargetHeroId: target.heroData.Id,
+                    SkillType: 0
+                })
+                window["starx"].request("entry.useskill", pbgame.UseSkill.encode(pbMsg).finish(), (msg: any) => {
+                    let pbObj = pbcommon.Response.decode(msg);
+                    cc.log("useskill result: " + pbObj.Code);
+                });
             }
 
             this._selectedSkill = null;
@@ -159,14 +173,18 @@ export default class MainCtrl extends cc.Component {
     //     this.schedule(this.runAction, 0.75);
     // }
 
-    private onRunAction(data: any): void {
-        let pbAction = pbgame.Action.decode(data);
+    private onRunAction(msg: any): void {
+        let pbAction = pbgame.Action.decode(msg);
         let srcHero = this.getHero(pbAction.SrcHeroId);
         let targetHero = this.getHero(pbAction.TargetHeroId);
         srcHero.attack(targetHero);
     }
 
-    private getHero(heroId: number): Hero {
+    public getHero(heroId: number): Hero {
+        if (heroId < 0) {
+            return null;
+        }
+
         for (const team of this._teamArr) {
             for (const hero of team.heros) {
                 if (hero.heroData.Id == heroId) {
@@ -223,5 +241,14 @@ export default class MainCtrl extends cc.Component {
         } else {
             srcTeam.runAction(targetTeam);
         }
+    }
+
+    onUseSkill(msg: any): void {
+        let pbObj = pbgame.UseSkill.decode(msg);
+        let srcHero = this.getHero(pbObj.SrcHeroId);
+        let targetHero = this.getHero(pbObj.TargetHeroId);
+
+        let eventType = (targetHero ? EventType.Game.ON_SKILL_SINGLE : EventType.Game.ON_SKILL_AOE);
+        EventMgr.emit(eventType, srcHero, targetHero, null);
     }
 }
