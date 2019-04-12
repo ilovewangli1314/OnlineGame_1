@@ -209,6 +209,9 @@ export namespace pbgame {
     /** Properties of a Scene. */
     interface IScene {
 
+        /** Scene randomSeed */
+        randomSeed?: (number|null);
+
         /** Scene teams */
         teams?: (pbgame.ITeam[]|null);
     }
@@ -221,6 +224,9 @@ export namespace pbgame {
          * @param [properties] Properties to set
          */
         constructor(properties?: pbgame.IScene);
+
+        /** Scene randomSeed. */
+        public randomSeed: number;
 
         /** Scene teams. */
         public teams: pbgame.ITeam[];

@@ -1,6 +1,7 @@
 import { pbgame } from "./protos/game";
 import { pbcommon } from "./protos/common";
 import GameDataMgr from "./data/GameDataMgr";
+import MyMath from "./common/MyMath";
 
 const { ccclass, property } = cc._decorator;
 
@@ -28,7 +29,7 @@ export default class Helloworld extends cc.Component {
             cc.log("[starx] onMessage:" + JSON.stringify(msg));
         };
 
-        var join = function (data) {
+        var join = function (data: any) {
             let joinResponse = pbcommon.Response.decode(data);
             if (joinResponse.Code == 0) {
                 cc.log("[starx] join success!");

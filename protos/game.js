@@ -508,6 +508,7 @@ $root.pbgame = (function() {
          * Properties of a Scene.
          * @memberof pbgame
          * @interface IScene
+         * @property {number|null} [randomSeed] Scene randomSeed
          * @property {Array.<pbgame.ITeam>|null} [teams] Scene teams
          */
 
@@ -526,6 +527,14 @@ $root.pbgame = (function() {
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
+
+        /**
+         * Scene randomSeed.
+         * @member {number} randomSeed
+         * @memberof pbgame.Scene
+         * @instance
+         */
+        Scene.prototype.randomSeed = 0;
 
         /**
          * Scene teams.
@@ -559,9 +568,11 @@ $root.pbgame = (function() {
         Scene.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
+            if (message.randomSeed != null && message.hasOwnProperty("randomSeed"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.randomSeed);
             if (message.teams != null && message.teams.length)
                 for (var i = 0; i < message.teams.length; ++i)
-                    $root.pbgame.Team.encode(message.teams[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.pbgame.Team.encode(message.teams[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
             return writer;
         };
 
@@ -597,6 +608,9 @@ $root.pbgame = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
+                    message.randomSeed = reader.int32();
+                    break;
+                case 2:
                     if (!(message.teams && message.teams.length))
                         message.teams = [];
                     message.teams.push($root.pbgame.Team.decode(reader, reader.uint32()));
@@ -636,6 +650,9 @@ $root.pbgame = (function() {
         Scene.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
+            if (message.randomSeed != null && message.hasOwnProperty("randomSeed"))
+                if (!$util.isInteger(message.randomSeed))
+                    return "randomSeed: integer expected";
             if (message.teams != null && message.hasOwnProperty("teams")) {
                 if (!Array.isArray(message.teams))
                     return "teams: array expected";
@@ -660,6 +677,8 @@ $root.pbgame = (function() {
             if (object instanceof $root.pbgame.Scene)
                 return object;
             var message = new $root.pbgame.Scene();
+            if (object.randomSeed != null)
+                message.randomSeed = object.randomSeed | 0;
             if (object.teams) {
                 if (!Array.isArray(object.teams))
                     throw TypeError(".pbgame.Scene.teams: array expected");
@@ -688,6 +707,10 @@ $root.pbgame = (function() {
             var object = {};
             if (options.arrays || options.defaults)
                 object.teams = [];
+            if (options.defaults)
+                object.randomSeed = 0;
+            if (message.randomSeed != null && message.hasOwnProperty("randomSeed"))
+                object.randomSeed = message.randomSeed;
             if (message.teams && message.teams.length) {
                 object.teams = [];
                 for (var j = 0; j < message.teams.length; ++j)
