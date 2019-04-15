@@ -44,7 +44,7 @@ export default class Helloworld extends cc.Component {
         };
 
         let host = "47.254.94.23";
-        host = "127.0.0.1";
+        // host = "127.0.0.1";
         starx.init({ host: host, port: 3250, path: '/' }, function () {
             cc.log("initialized");
             // starx.on("onNewUser", onNewUser);
