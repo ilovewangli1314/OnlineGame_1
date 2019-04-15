@@ -36,9 +36,10 @@ export default class Team extends cc.Component {
                 return;
             }
 
-            this._heros.forEach((hero: Hero) => {
+            let heros = this._heros.slice(0);
+            for (const hero of heros) {
                 hero.beAttacked(src);
-            });
+            }
 
             if (onComplete) {
                 this.node.runAction(cc.sequence(cc.delayTime(1), cc.callFunc(onComplete)));

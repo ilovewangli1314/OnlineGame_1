@@ -63,6 +63,8 @@ export default class MainCtrl extends cc.Component {
     }
     private _curTeamIdx: number = 0;
 
+    private _netHandlers: {}[] = [];
+
     // LIFE-CYCLE CALLBACKS:
 
     onLoad(): void {
@@ -76,8 +78,21 @@ export default class MainCtrl extends cc.Component {
 
         // 监听服务器push的指令
         let starx = window["starx"];
-        starx.on("onRunAction", this.onRunAction.bind(this));
-        starx.on("onUseSkill", this.onUseSkill.bind(this));
+        let netHandler = this.onRunAction.bind(this);
+        this._netHandlers.push({event: "onRunAction", fn: netHandler});
+        starx.on("onRunAction", netHandler);
+
+        netHandler = this.onUseSkill.bind(this);
+        this._netHandlers.push({event: "onUseSkill", fn: netHandler});
+        starx.on("onUseSkill", netHandler);
+    }
+
+    onDestroy(): void {
+        // 取消监听服务器push的指令
+        let starx = window["starx"];
+        for (const netHandler of this._netHandlers) {
+            starx.off(netHandler["event"], netHandler["fn"]);
+        }
     }
 
     initAllHeros(): void {

@@ -38,17 +38,9 @@ export default class Helloworld extends cc.Component {
             }
         };
 
-        var onNewUser = function (data) {
+        var onNewUser = function (data: any) {
             // let newUser = protos.NewUser.decode(data);
             // cc.log("[starx] onNewUser:" + newUser.Content);
-        };
-
-        var onGameBegin = function (data: any): void {
-            GameDataMgr.onGameBegin(data);
-            // let allMembers = protos.AllMembers.decode(data);
-            // cc.log("[starx] onMembers: " + JSON.stringify(allMembers));
-
-            cc.director.loadScene("game");
         };
 
         let host = "47.254.94.23";
@@ -56,7 +48,10 @@ export default class Helloworld extends cc.Component {
         starx.init({ host: host, port: 3250, path: '/' }, function () {
             cc.log("initialized");
             // starx.on("onNewUser", onNewUser);
-            starx.on("onGameBegin", onGameBegin);
+            starx.on("onGameBegin", (data: any) => {
+                GameDataMgr.onGameBegin(data);
+                cc.director.loadScene("game");
+            });
             let msg = pbgame.JoinRequest.encode(pbgame.JoinRequest.create()).finish();
             starx.request("entry.join", msg, join);
         })

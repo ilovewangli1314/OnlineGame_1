@@ -108,6 +108,10 @@ export default class Hero extends cc.Component {
     // update (dt): void {}
 
     attack(target: Hero): void {
+        if (!target) {
+            return;
+        }
+
         let targetPos = target.originPos;
         let dt = 0.25;
         let moveAct = cc.moveTo(dt, targetPos);
@@ -125,6 +129,7 @@ export default class Hero extends cc.Component {
     beAttacked(src: Hero): void {
         let reduceHp = src.heroData.Attack - this._heroData.Defense;
         this._heroData.Hp -= reduceHp;
+
         let prefabReduceHp = cc.instantiate(this.prefabReduceHp);
         // 初始化动画节点起始位置于英雄区域的顶部
         prefabReduceHp.y += this.node.height * 0.5;

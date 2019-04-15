@@ -8,6 +8,8 @@
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
+import { pbgame } from "../protos/game";
+
 const { ccclass, property, menu } = cc._decorator;
 
 @ccclass
@@ -24,6 +26,8 @@ export default class UICtrl extends cc.Component {
     // update (dt) {}
 
     restartGame(): void {
-        cc.director.loadScene("gameRoom");
+        let starx = window["starx"];
+        let msg = pbgame.JoinRequest.encode(pbgame.JoinRequest.create()).finish();
+        starx.request("entry.restartgame", msg, null);
     }
 }
